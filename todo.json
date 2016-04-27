@@ -1,4 +1,6 @@
-
-  {
-    "todo" : ["create to do list ", "print to do list "]
-  }
+{
+    "todo":[
+        "make it look better",
+        "have done list"
+    ]
+}

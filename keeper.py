@@ -23,7 +23,32 @@ def PrintToDoList( todoList ) :
    print "\n"
    print "*********************"
 
-print "To do list "
+
+def RunMain( todoList ) :
+    run = True
+    command = ""
+    while ( run ) :
+        command = raw_input( " Enter a command ")
+
+        if ( command == "print" ) :
+            PrintToDoList( todoList )
+
+        if ( command == "end" ) :
+            run = False
+
+        if ( command == "add" ) :
+            newTodo = raw_input( "Add todo ")
+            todoList.append( newTodo )
+
+        if ( command == "removeitem" ) :
+            str_index = raw_input("index")
+            index = int( str_index)
+            todoList.pop( index )
+
+        if ( command == "clear" ) :
+            todoList = []
+
+    return todoList
 
 # load json to do list
 filename = str( sys.argv[1])
@@ -34,25 +59,8 @@ with open( filename ) as data_file :
     todoList = data["todo"]
 
 
-run = True
-command = ""
-while ( run ) :
-    command = raw_input( " Enter a command ")
+data["todo"] = RunMain( data["todo"])
 
-    if ( command == "print" ) :
-        PrintToDoList( todoList )
 
-    if ( command == "end" ) :
-        run = False
-
-    if ( command == "add" ) :
-        newTodo = raw_input( "Add todo ")
-        todoList.append( newTodo )
-
-    if ( command == "removeitem" ) :
-        str_index = raw_input("index")
-        index = int( str_index)
-        todoList.pop( index )
-
-    if ( command == "clear" ) :
-        todoList = []
+with open( filename , 'w' ) as f :
+    f.write( json.dumps( data , sort_keys=True , indent=4 , separators=(',',':') ))
