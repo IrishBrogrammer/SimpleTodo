@@ -29,6 +29,7 @@ def PrintHelp() :
   print "clear : Clear the list"
   print "end : end the program"
   print "done : Move an item to the done list" 
+  print "undo : Move item from done list to the todo list " 
   print "\n"
 
 
@@ -41,6 +42,14 @@ def MoveToDoneList( todoList ) :
     todoList["done"].append( item )
     return todoList
 
+def MoveToTodoList( todoList ) : 
+
+    str_index = raw_input( " Item to move to done : " )
+    index = int( str_index )
+    
+    item = todoList["done"].pop( index )
+    todoList["todo"].append( item )
+    return todoList
 
 
 def RemoveItem( todoList  ) : 
@@ -81,6 +90,9 @@ def RunMain( todoList ) :
         
         if ( command == "help" ) : 
             PrintHelp()
+            
+        if ( command == "undo" ) : 
+            todoList = MoveToTodoList( todoList )
             
         if ( command == "clear" ) :
             todoList = []
