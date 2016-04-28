@@ -4,24 +4,27 @@ import os,glob
 import os.path
 
 
-class bcolors:
-    OKBLUE = '\033[94m'
-    TODO = '\033[92m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
-    ENDC = '\033[0m'
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
 
 
 
 def PrintToDoList( todoList ) :
 
+   print "\n"
    print "******* TO-DO *******\n"
    for todo in todoList :
        print todo
    print "\n"
    print "*********************"
+
+
+def PrintHelp() : 
+  print "\n"
+  print "print : Print list of to-dos" 
+  print "add : Add a todo to the list" 
+  print "removeitem : Remove item from todo list"
+  print "clear : Clear the list"
+  print "end : end the program"
+  print "\n"
 
 
 def RunMain( todoList ) :
@@ -44,11 +47,15 @@ def RunMain( todoList ) :
             str_index = raw_input("index")
             index = int( str_index)
             todoList.pop( index )
-
+        
+        if ( command == "help" ) : 
+            PrintHelp()
+            
         if ( command == "clear" ) :
             todoList = []
 
     return todoList
+
 
 # load json to do list
 filename = str( sys.argv[1])
@@ -56,11 +63,10 @@ filename = str( sys.argv[1])
 print filename
 with open( filename ) as data_file :
     data = json.load( data_file )
-    todoList = data["todo"]
-
-
+    
 data["todo"] = RunMain( data["todo"])
-
-
 with open( filename , 'w' ) as f :
     f.write( json.dumps( data , sort_keys=True , indent=4 , separators=(',',':') ))
+
+
+
