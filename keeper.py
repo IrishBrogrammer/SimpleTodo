@@ -29,7 +29,8 @@ def PrintHelp() :
   print "clear : Clear the list"
   print "end : end the program"
   print "done : Move an item to the done list" 
-  print "undo : Move item from done list to the todo list " 
+  print "undo : Move item from done list to the todo list "
+  print "report : Create a json report for the days work "  
   print "\n"
 
 
@@ -64,6 +65,15 @@ def RemoveItem( todoList  ) :
         
      return todoList
 
+def PrintReport( todoList ) : 
+    with open( "report.json" , "w+" ) as f:
+         f.write( "Report \n" )
+         for done in todoList["done"] :
+            f.write( done + "\n" )
+
+
+
+
 def RunMain( todoList ) :
     run = True
     command = ""
@@ -96,6 +106,9 @@ def RunMain( todoList ) :
             
         if ( command == "clear" ) :
             todoList = []
+            
+        if ( command == "report" ) : 
+            PrintReport( todoList )
             
     return todoList
 
