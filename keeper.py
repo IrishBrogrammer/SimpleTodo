@@ -13,8 +13,10 @@ def PrintToDoList( todoList ) :
 
    print "\n"
    print "******* TO-DO *******\n"
+   index = 0
    for todo in todoList :
-       print todo
+       print str(index) + " : " + todo
+       index = index + 1
    print "\n"
    print "*********************"
 
@@ -26,6 +28,7 @@ def PrintHelp() :
   print "removeitem : Remove item from todo list"
   print "clear : Clear the list"
   print "end : end the program"
+  print "done : Move an item to the done list" 
   print "\n"
 
 
