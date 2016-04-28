@@ -3,10 +3,12 @@ import sys
 import os,glob
 import os.path
 
-
-
-
-
+def PrintDoneList( completed ) : 
+  print "\n"
+  print "******** DONE ********\n"
+  for done in completed :
+       print done
+  
 def PrintToDoList( todoList ) :
 
    print "\n"
@@ -27,6 +29,17 @@ def PrintHelp() :
   print "\n"
 
 
+def MoveToDoneList( todoList ) : 
+
+    str_index = raw_input( " Item to move to done : " )
+    index = int( str_index )
+    
+    item = todoList["todo"].pop( index )
+    todoList["done"].append( item )
+    return todoList
+
+
+
 def RemoveItem( todoList  ) : 
     
      str_index = raw_input("index to remove : ")
@@ -43,27 +56,32 @@ def RunMain( todoList ) :
     run = True
     command = ""
     while ( run ) :
+        
         command = raw_input( " Enter a command ")
 
         if ( command == "print" ) :
-            PrintToDoList( todoList )
-
+            PrintDoneList( todoList["done"])
+            PrintToDoList( todoList["todo"] )
+        
         if ( command == "end" ) :
             run = False
 
         if ( command == "add" ) :
             newTodo = raw_input( "Add todo ")
-            todoList.append( newTodo )
+            todoList["todo"].append( newTodo )
 
         if ( command == "removeitem" ) :
-            todoList = RemoveItem( todoList )
+            todoList["todo"] = RemoveItem( todoList["todo"] )
+        
+        if ( command == "done" ) : 
+            todoList = MoveToDoneList( todoList)
         
         if ( command == "help" ) : 
             PrintHelp()
             
         if ( command == "clear" ) :
             todoList = []
-
+            
     return todoList
 
 
@@ -74,7 +92,8 @@ print filename
 with open( filename ) as data_file :
     data = json.load( data_file )
     
-data["todo"] = RunMain( data["todo"])
+data = RunMain( data )
+
 with open( filename , 'w' ) as f :
     f.write( json.dumps( data , sort_keys=True , indent=4 , separators=(',',':') ))
 
