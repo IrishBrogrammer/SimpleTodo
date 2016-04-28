@@ -27,6 +27,18 @@ def PrintHelp() :
   print "\n"
 
 
+def RemoveItem( todoList  ) : 
+    
+     str_index = raw_input("index to remove : ")
+     index = int( str_index)
+     todo = todoList[index]
+     confirm = raw_input( "Are you sure you want to remove  : \n" + todo + "\n Y/N \n" )
+     
+     if ( confirm == "y" or confirm == "Y" ) :
+        todoList.pop( index )
+        
+     return todoList
+
 def RunMain( todoList ) :
     run = True
     command = ""
@@ -44,9 +56,7 @@ def RunMain( todoList ) :
             todoList.append( newTodo )
 
         if ( command == "removeitem" ) :
-            str_index = raw_input("index")
-            index = int( str_index)
-            todoList.pop( index )
+            todoList = RemoveItem( todoList )
         
         if ( command == "help" ) : 
             PrintHelp()
