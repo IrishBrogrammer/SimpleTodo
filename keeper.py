@@ -30,6 +30,7 @@ def PrintHelp() :
   print "end : end the program"
   print "done : Move an item to the done list" 
   print "undo : Move item from done list to the todo list "
+  print "cleartodo : Clear todo list " 
   print "report : Create a json report for the days work "  
   print "\n"
 
@@ -51,7 +52,10 @@ def MoveToTodoList( todoList ) :
     item = todoList["done"].pop( index )
     todoList["todo"].append( item )
     return todoList
-
+    
+def ClearTodoList( todoList ) : 
+    todoList["done"] = []
+    return todoList
 
 def RemoveItem( todoList  ) : 
     
@@ -103,6 +107,9 @@ def RunMain( todoList ) :
             
         if ( command == "undo" ) : 
             todoList = MoveToTodoList( todoList )
+            
+        if ( command == "cleartodo" ) : 
+            todoList = ClearTodoList( todoList )
             
         if ( command == "clear" ) :
             todoList = []
