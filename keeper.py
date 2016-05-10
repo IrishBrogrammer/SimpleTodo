@@ -30,7 +30,8 @@ def PrintHelp() :
   print "end : end the program"
   print "done : Move an item to the done list" 
   print "undo : Move item from done list to the todo list "
-  print "cleartodo : Clear todo list " 
+  print "cleartodo : Clear todo list "
+  print "cleardone : Clear done list " 
   print "report : Create a json report for the days work "  
   print "\n"
 
@@ -53,10 +54,11 @@ def MoveToTodoList( todoList ) :
     todoList["todo"].append( item )
     return todoList
     
-def ClearTodoList( todoList ) : 
-    todoList["done"] = []
+    
+def ClearPartOfList( todoList ,listToClear ) :
+    todoList[listToClear] = []
     return todoList
-
+    
 def RemoveItem( todoList  ) : 
     
      str_index = raw_input("index to remove : ")
@@ -109,8 +111,11 @@ def RunMain( todoList ) :
             todoList = MoveToTodoList( todoList )
             
         if ( command == "cleartodo" ) : 
-            todoList = ClearTodoList( todoList )
+            todoList = ClearPartOfList( todoList , "todo" )
             
+        if ( command == "cleardone" ) : 
+           todoList =  ClearPartOfList( todoList , "done" )
+           
         if ( command == "clear" ) :
             todoList = []
             
